@@ -1,4 +1,4 @@
-package ccs.utils;
+package ccs.configs;
 
 import ccs.dao.ShareDao;
 import ccs.jdo.Course;

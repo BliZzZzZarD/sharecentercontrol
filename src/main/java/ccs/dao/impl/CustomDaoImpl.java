@@ -25,6 +25,7 @@ public class CustomDaoImpl implements CustomDao {
     private static final Logger log = LoggerFactory.getLogger(CustomDaoImpl.class);
 
     private static final String GET_SHARES_SEARCH = FileUtils.loadScriptFromFile("/sql/getSharesSearch.sql");
+    private static final String GET_SHARES_SEARCH_AND_ACTIVE = FileUtils.loadScriptFromFile("/sql/getSharesSearchAndActive.sql");
     private static final String GET_CURSES_BY_SHARE_ID = FileUtils.loadScriptFromFile("/sql/getCourseByShareId.sql");
     private static final String GET_COURSE_BY_DATE = FileUtils.loadScriptFromFile("/sql/getCourseByDate.sql");
 
@@ -42,6 +43,18 @@ public class CustomDaoImpl implements CustomDao {
         params.put("toPos", toPos);
 
         return namedParameterJdbcTemplate.query(GET_SHARES_SEARCH, params, SHARE_MAPPER);
+    }
+
+    @Override
+    public List<Share> getShareListBySearch(String src, Integer fromPos, Integer toPos, Boolean isActive) {
+        log.info("process method getShareListBySearch for src: {}", src);
+        Map<String, Object> params = new HashMap<>();
+        params.put("filter", src);
+        params.put("fromPos", fromPos);
+        params.put("toPos", toPos);
+        params.put("isActive", isActive);
+
+        return namedParameterJdbcTemplate.query(GET_SHARES_SEARCH_AND_ACTIVE, params, SHARE_MAPPER);
     }
 
     @Override

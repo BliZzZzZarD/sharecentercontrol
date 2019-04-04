@@ -68,6 +68,13 @@ public class CustomDaoTest {
     }
 
     @Test
+    public void testGetShareListBySearchAndActive() {
+        List<Share> shares = customDao.getShareListBySearch(NAME, FROM, TO, true);
+
+        assertEquals(1, shares.size());
+    }
+
+    @Test
     public void testFindCourseByShareId() {
         List<Share> shares = customDao.getShareListBySearch(NAME, FROM, TO);
         List<Course> courses = customDao.findCourseByShareId(shares.get(0).getId());

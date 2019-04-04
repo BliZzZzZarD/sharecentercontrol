@@ -44,9 +44,12 @@ public class ShareRestController {
 
     @GetMapping("/shares")
     @ApiOperation(value = "The method is allowed to get a list of shares by part of name. List is displayed in parts.")
-    public Response shares(@RequestParam String src, @RequestParam Integer fromPos, @RequestParam Integer toPos) {
+    public Response shares(@RequestParam String src,
+                           @RequestParam Integer fromPos,
+                           @RequestParam Integer toPos,
+                           @RequestParam (required = false, defaultValue = "false") Boolean onlyActive) {
         log.info("process method shares for src: {}", src);
-        return Response.ok(shareLogic.getShareListBySearch(src, fromPos, toPos));
+        return Response.ok(shareLogic.getShareListBySearch(src, fromPos, toPos, onlyActive));
     }
 
     @GetMapping("/courses")

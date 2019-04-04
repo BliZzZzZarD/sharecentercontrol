@@ -17,8 +17,10 @@ public class ShareLogic {
 
     private static final Logger log = LoggerFactory.getLogger(ShareLogic.class);
 
-    public List<Share> getShareListBySearch(String src, Integer fromPos, Integer toPos) {
+    public List<Share> getShareListBySearch(String src, Integer fromPos, Integer toPos, Boolean onlyActive) {
         log.info("process method getShareListBySearch for src: {}", src);
-        return customDao.getShareListBySearch(StringUtils.getPrepareText(src), fromPos, toPos);
+        String prepareText = StringUtils.getPrepareText(src);
+        return onlyActive ? customDao.getShareListBySearch(prepareText, fromPos, toPos, true)
+                : customDao.getShareListBySearch(prepareText, fromPos, toPos);
     }
 }
